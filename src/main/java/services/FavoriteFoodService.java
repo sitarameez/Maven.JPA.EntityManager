@@ -16,7 +16,7 @@ public class FavoriteFoodService {
     List<FavoriteFood> favoriteFoodList;
 
     public FavoriteFoodService() {
-        entityManagerFactory= Persistence.createEntityManagerFactory("food");
+        entityManagerFactory= Persistence.createEntityManagerFactory("foodunit");
         entityManager=entityManagerFactory.createEntityManager();
         favoriteFoodList=new ArrayList<>();
     }

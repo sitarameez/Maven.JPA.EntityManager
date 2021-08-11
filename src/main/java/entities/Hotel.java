@@ -1,18 +1,22 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "hotel")
 public class Hotel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String type;
     private String location;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name="name",nullable = false)
-    private FavoriteFood favoriteFood;
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.ALL,
+            fetch= FetchType.LAZY,orphanRemoval = true)
+    private Set<FavoriteFood> favoriteFood = new HashSet<>();
+
     public Hotel() { }
 
 
@@ -22,6 +26,7 @@ public class Hotel {
         this.name = name;
         this.type = type;
         this.location = location;
+
     }
 
     public Long getId() {
@@ -65,9 +70,5 @@ public class Hotel {
                 ", location='" + location + '\'' +
                 '}';
     }
-    public FavoriteFood getFavoriteFood(){return favoriteFood;}
 
-    public void setFavoriteFood(FavoriteFood favoriteFood) {
-        this.favoriteFood = favoriteFood;
-    }
 }

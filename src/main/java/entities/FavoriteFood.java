@@ -5,18 +5,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "favoriteFood")
 
 public class FavoriteFood {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String combo;
     private String hotelName;
 
-    @OneToMany(mappedBy = "favoriteFood",cascade = CascadeType.ALL,
-    fetch= FetchType.LAZY,orphanRemoval = true)
-    private Set<Hotel> hotel = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name="name",nullable = false)
+    private Hotel hotel;
+
+
+    public FavoriteFood(Long id, String name, String combo, String hotelName,Hotel hotel) {
+        this.id = id;
+        this.name = name;
+        this.combo = combo;
+        this.hotelName = hotelName;
+    }
+
     public FavoriteFood(){}
 
     public Long getId() {
@@ -51,12 +61,6 @@ public class FavoriteFood {
         this.hotelName = hotelName;
     }
 
-    public FavoriteFood(Long id, String name, String combo, String hotelName) {
-        this.id = id;
-        this.name = name;
-        this.combo = combo;
-        this.hotelName = hotelName;
-    }
 
     @Override
     public String toString() {
@@ -66,5 +70,13 @@ public class FavoriteFood {
                 ", combo='" + combo + '\'' +
                 ", hotelName='" + hotelName + '\'' +
                 '}';
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 }

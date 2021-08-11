@@ -16,7 +16,7 @@ public class HotelService{
     List<Hotel> hotels;
 
     public HotelService() {
-        entityManagerFactory= Persistence.createEntityManagerFactory("food");
+        entityManagerFactory= Persistence.createEntityManagerFactory("foodunit");
         entityManager=entityManagerFactory.createEntityManager();
         hotels=new ArrayList<>();
     }

@@ -1,0 +1,5 @@
+services/HotelService.class
+Main/Main1.class
+services/FavoriteFoodService.class
+entities/Hotel.class
+entities/FavoriteFood.class
