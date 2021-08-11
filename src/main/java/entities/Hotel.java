@@ -1,18 +1,21 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Hotel {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String type;
-
+    private String location;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name="name",nullable = false)
+    private FavoriteFood favoriteFood;
     public Hotel() { }
 
-    private String location;
+
 
     public Hotel(Long id, String name, String type, String location) {
         this.id = id;
@@ -51,5 +54,20 @@ public class Hotel {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", location='" + location + '\'' +
+                '}';
+    }
+    public FavoriteFood getFavoriteFood(){return favoriteFood;}
+
+    public void setFavoriteFood(FavoriteFood favoriteFood) {
+        this.favoriteFood = favoriteFood;
     }
 }

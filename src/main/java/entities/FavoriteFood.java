@@ -1,17 +1,22 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 
 public class FavoriteFood {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String combo;
-    private String shape;
+    private String hotelName;
 
+    @OneToMany(mappedBy = "favoriteFood",cascade = CascadeType.ALL,
+    fetch= FetchType.LAZY,orphanRemoval = true)
+    private Set<Hotel> hotel = new HashSet<>();
     public FavoriteFood(){}
 
     public Long getId() {
@@ -38,18 +43,28 @@ public class FavoriteFood {
         this.combo = combo;
     }
 
-    public String getShape() {
-        return shape;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public void setShape(String shape) {
-        this.shape = shape;
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
-    public FavoriteFood(Long id, String name, String combo, String shape) {
+    public FavoriteFood(Long id, String name, String combo, String hotelName) {
         this.id = id;
         this.name = name;
         this.combo = combo;
-        this.shape = shape;
+        this.hotelName = hotelName;
+    }
+
+    @Override
+    public String toString() {
+        return "FavoriteFood{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", combo='" + combo + '\'' +
+                ", hotelName='" + hotelName + '\'' +
+                '}';
     }
 }
